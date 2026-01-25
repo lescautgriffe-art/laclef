@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ouverture du coffre</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    #container {
+      max-width: 600px;
+    }
+    #image {
+      display: none;
+      margin-top: 20px;
+    }
+    img {
+      max-width: 100%;
+      border: 2px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+<div id="container">
+  <h1>Le temps n’est pas encore venu</h1>
+  <p id="countdown"></p>
+
+  <div id="image">
+    <h2>La clé se trouve ici :</h2>
+    <img src="clef.jpg" alt="Emplacement de la clé">
+  </div>
+</div>
+
+<script>
+  // 🔧 DATE ET HEURE DE RÉVÉLATION (AAAA-MM-JJTHH:MM:SS)
+  const revealDate = new Date(2026, 0, 24, 18, 25, 0).getTime();
+
+  const countdownEl = document.getElementById("countdown");
+  const imageEl = document.getElementById("image");
+
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = revealDate - now;
+
+    if (distance <= 0) {
+      clearInterval(timer);
+      countdownEl.style.display = "none";
+      imageEl.style.display = "block";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.textContent =
+      `Révélation dans ${days}j ${hours}h ${minutes}m ${seconds}s`;
+  }, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ouverture du coffre</title>
+
+<style>
+body {
+  font-family: Georgia, serif;
+  background: #111;
+  color: #eee;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+}
+#container {
+  padding: 20px;
+  max-width: 90vw;
+}
+#image {
+  display: none;
+  margin-top: 20px;
+}
+img {
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #eee;
+}
+</style>
+</head>
+
+<body>
+<div id="container">
+  <h1>Le temps n’est pas encore venu</h1>
+  <p id="countdown">Le sablier s’écoule…</p>
+
+  <div id="image">
+    <h2>La clé se trouve ici :</h2>
+    <img src="clef.jpg" alt="Emplacement de la clé">
+  </div>
+</div>
+
+<script>
+const revealDate = new Date(2026, 0, 24, 18, 35, 0).getTime();
+
+const countdownEl = document.getElementById("countdown");
+const imageEl = document.getElementById("image");
+
+setInterval(() => {
+  const now = Date.now();
+  const distance = revealDate - now;
+
+  if (distance <= 0) {
+    countdownEl.style.display = "none";
+    imageEl.style.display = "block";
+    return;
+  }
+
+  const d = Math.floor(distance / 86400000);
+  const h = Math.floor((distance % 86400000) / 3600000);
+  const m = Math.floor((distance % 3600000) / 60000);
+  const s = Math.floor((distance % 60000) / 1000);
+
+  countdownEl.textContent =
+    `Révélation dans ${d}j ${h}h ${m}m ${s}s`;
+}, 1000);
+</script>
+</body>
+</html>
